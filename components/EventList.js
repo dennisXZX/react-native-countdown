@@ -18,6 +18,8 @@ class EventList extends Component {
     };
 
     componentDidMount() {
+        // update timers property every second,
+        // so on each second the EventCard component would re-render
         setInterval(() => {
             this.setState({
                events: this.state.events.map(event => ({
@@ -27,6 +29,7 @@ class EventList extends Component {
             });
         }, 1000);
 
+        // convert the event date string to a Date object
         const events = mockData.events.map(event => {
             return {
                 ...event,
@@ -37,6 +40,7 @@ class EventList extends Component {
         this.setState({ events });
     }
 
+    // navigate to the form page
     handleAddEvent = () => {
         this.props.navigation.navigate('form');
     };
