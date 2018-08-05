@@ -15,6 +15,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-action-button": "^2.8.4",
     "react-native-modal-datetime-picker": "^6.0.0",
-    "react-navigation": "^2.11.2"
+    "react-navigation": "^2.11.2",
+    "uuid": "^3.3.2"
   }
 }

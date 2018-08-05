@@ -1,4 +1,37 @@
 import moment from 'moment';
+import Expo from "expo";
+import uuid from 'uuid';
+
+const { manifest } = Expo.Constants;
+
+// a way to get around hitting the json-server running on your local machine on your phone or emulator
+const API = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+    ? manifest.debuggerHost.split(`:`).shift().concat(`:3000`)
+    : `api.example.com`;
+
+const URL = `http://${API}/events`;
+
+export function getEvents() {
+    return fetch(URL)
+        .then(response => response.json())
+        .then(events => events.map(e => ({ ...e, date: new Date(e.date) })))
+}
+
+export function saveEvent({ title, date }) {
+    return fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify({
+            title,
+            date,
+            id: uuid(),
+        }),
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error));
+}
 
 export function formatDate(dateString) {
     // convert the date string into a Moment object
