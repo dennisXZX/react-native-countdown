@@ -5,9 +5,9 @@ import uuid from 'uuid';
 const { manifest } = Expo.Constants;
 
 // a way to get around hitting the json-server running on your local machine on your phone or emulator
-const API = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-    ? manifest.debuggerHost.split(`:`).shift().concat(`:3000`)
-    : `api.example.com`;
+const API = (typeof manifest.packagerOpts === 'object') && manifest.packagerOpts.dev
+    ? manifest.debuggerHost.split(`:`).shift().concat(':3000')
+    : 'api.example.com';
 
 const URL = `http://${API}/events`;
 

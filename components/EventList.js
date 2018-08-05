@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import EventCard from './EventCard';
-import mockData from '../mock/db.json';
 import { getEvents } from '../api/api';
 
 const styles = StyleSheet.create({
