@@ -17,6 +17,15 @@ class EventList extends Component {
     };
 
     componentDidMount() {
+        setInterval(() => {
+            this.setState({
+               events: this.state.events.map(event => ({
+                   ...event,
+                   timers: Date.now()
+               }))
+            });
+        }, 1000);
+
         const events = mockData.events.map(event => {
             return {
                 ...event,
@@ -26,7 +35,6 @@ class EventList extends Component {
 
         this.setState({ events });
     }
-
 
     render () {
         return (

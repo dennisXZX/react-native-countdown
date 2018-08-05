@@ -7,7 +7,8 @@ import {
 import PropTypes from 'prop-types';
 import {
     formatDate,
-    getCountdownParts
+    getCountdownParts,
+    isEventStillOn
 } from '../api/api';
 
 
@@ -61,9 +62,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 0,
     },
+    offlineEventContainer: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    offlineEventLabel: {
+        color: '#bdbdbd',
+        fontSize: 18,
+        fontWeight: '100',
+        textAlign: 'center',
+        paddingTop: 15
+    }
 });
 
 const EventCard = ({event}) => {
+
     const {
         days,
         hours,
@@ -71,42 +84,67 @@ const EventCard = ({event}) => {
         seconds,
     } = getCountdownParts(event.date);
 
-    return (
-        <View style={styles.card}>
+    // check if an event is still on
+    if (isEventStillOn(event.date)) {
 
-            {/* header */}
-            <View style={styles.cardHeader}>
-                <Text style={styles.date}>{formatDate(event.date)}</Text>
-                <Text style={styles.title}>{event.title}</Text>
+        return (
+            <View style={styles.card}>
+
+                {/* header */}
+                <View style={styles.cardHeader}>
+                    <Text style={styles.date}>{formatDate(event.date)}</Text>
+                    <Text style={styles.title}>{event.title}</Text>
+                </View>
+
+                {/* body */}
+                <View
+                    style={styles.counterContainer}>
+                    <View
+                        style={styles.counter}>
+                        <Text style={styles.counterText}>{days}</Text>
+                        <Text style={styles.counterLabel}>DAYS</Text>
+                    </View>
+                    <View
+                        style={styles.counter}>
+                        <Text style={styles.counterText}>{hours}</Text>
+                        <Text style={styles.counterLabel}>HOURS</Text>
+                    </View>
+                    <View
+                        style={styles.counter}>
+                        <Text style={styles.counterText}>{minutes}</Text>
+                        <Text style={styles.counterLabel}>MINUTES</Text>
+                    </View>
+                    <View
+                        style={styles.counter}>
+                        <Text style={styles.counterText}>{seconds}</Text>
+                        <Text style={styles.counterLabel}>SECONDS</Text>
+                    </View>
+                </View>
+
             </View>
+        )
+    } else {
+        return (
+            <View style={styles.card}>
 
-            {/* body */}
-            <View
-                style={styles.counterContainer}>
-                <View
-                    style={styles.counter}>
-                    <Text style={styles.counterText}>{days}</Text>
-                    <Text style={styles.counterLabel}>DAYS</Text>
+                {/* header */}
+                <View style={styles.cardHeader}>
+                    <Text style={styles.date}>{formatDate(event.date)}</Text>
+                    <Text style={styles.title}>{event.title}</Text>
                 </View>
+
+                {/* body */}
                 <View
-                    style={styles.counter}>
-                    <Text style={styles.counterText}>{hours}</Text>
-                    <Text style={styles.counterLabel}>HOURS</Text>
+                    style={styles.offlineEventContainer}>
+                    <Text style={styles.offlineEventLabel}>
+                        Event is offline
+                    </Text>
                 </View>
-                <View
-                    style={styles.counter}>
-                    <Text style={styles.counterText}>{minutes}</Text>
-                    <Text style={styles.counterLabel}>MINUTES</Text>
-                </View>
-                <View
-                    style={styles.counter}>
-                    <Text style={styles.counterText}>{seconds}</Text>
-                    <Text style={styles.counterLabel}>SECONDS</Text>
-                </View>
+
             </View>
+        )
+    }
 
-        </View>
-    )
 };
 
 export default EventCard;

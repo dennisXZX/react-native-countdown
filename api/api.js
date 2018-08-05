@@ -13,6 +13,17 @@ export function formatDate(dateString) {
     return parsed.format('D MMM YYYY');
 }
 
+export function isEventStillOn(eventDate) {
+    // get the duration of the difference between event date and today
+    const duration = moment.duration(moment(new Date(eventDate)).diff(new Date()));
+
+    if (duration > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 export function getCountdownParts(eventDate) {
     // get the duration of the difference between event date and today
     const duration = moment.duration(moment(new Date(eventDate)).diff(new Date()));
