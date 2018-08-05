@@ -3,6 +3,7 @@ import { FlatList, StyleSheet } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import EventCard from './EventCard';
 import mockData from '../mock/db.json';
+import { getEvents } from '../api/api';
 
 const styles = StyleSheet.create({
     list: {
@@ -29,15 +30,11 @@ class EventList extends Component {
             });
         }, 1000);
 
-        // convert the event date string to a Date object
-        const events = mockData.events.map(event => {
-            return {
-                ...event,
-                date: new Date(event.date)
+        getEvents().then((events) => {
+                console.log('events from API', events);
+                this.setState({ events })
             }
-        });
-
-        this.setState({ events });
+        );
     }
 
     // navigate to the form page

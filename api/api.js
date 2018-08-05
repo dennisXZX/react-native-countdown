@@ -14,7 +14,10 @@ const URL = `http://${API}/events`;
 export function getEvents() {
     return fetch(URL)
         .then(response => response.json())
-        .then(events => events.map(e => ({ ...e, date: new Date(e.date) })))
+        .then(events => events.map(e => ({
+            ...e,
+            date: new Date(e.date)
+        })))
 }
 
 export function saveEvent({ title, date }) {
