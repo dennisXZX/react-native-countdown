@@ -29,11 +29,14 @@ class EventList extends Component {
             });
         }, 1000);
 
-        getEvents()
-            .then((events) => {
-                this.setState({ events })
-            }
-        );
+        // when the navigation get focus again, re-render the event list
+        this.props.navigation.addListener('didFocus', () => {
+            getEvents()
+                .then((events) => {
+                        this.setState({ events })
+                    }
+                );
+        });
     }
 
     // navigate to the form page
