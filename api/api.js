@@ -18,6 +18,7 @@ export function getEvents() {
             ...e,
             date: new Date(e.date)
         })))
+        .catch(error => console.error('Error:', error));
 }
 
 export function saveEvent({ title, date }) {

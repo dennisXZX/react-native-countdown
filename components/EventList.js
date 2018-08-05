@@ -29,8 +29,8 @@ class EventList extends Component {
             });
         }, 1000);
 
-        getEvents().then((events) => {
-                console.log('events from API', events);
+        getEvents()
+            .then((events) => {
                 this.setState({ events })
             }
         );
